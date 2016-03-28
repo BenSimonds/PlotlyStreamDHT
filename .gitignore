@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-*.pyc #Ignore compiled python
-.DS_Store #Ignore DS_Store
-=======
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -64,4 +60,3 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
->>>>>>> 4ffcc131764a4354aa209d315823403eac5205e3
