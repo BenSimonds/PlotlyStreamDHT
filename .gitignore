@@ -1,0 +1,2 @@
+*.pyc #Ignore compiled python
+.DS_Store #Ignore DS_Store
