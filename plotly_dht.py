@@ -49,7 +49,7 @@ with open('./config.json') as config_file:
 			time.sleep(2)	# Wait a bit.
 			continue
 
-		stream.write({',':datetime.datetime.now(), 'y':humidity})
+		stream.write({'x':datetime.datetime.now(), 'y':humidity})
 
 		#Delay between stream posts.
 		time.sleep(5)
