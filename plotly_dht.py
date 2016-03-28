@@ -31,19 +31,33 @@ with open('./config.json') as config_file:
 	trace1 = Scatter(
 		x=[],
 		y=[],
-		mode = 'lines',
-		stream = Stream(token=plotly_user_config['plotly_streaming_tokens'][0],maxpoints=100)
+		mode = 'lines+markers',
+		stream = Stream(token=plotly_user_config['plotly_streaming_tokens'][0],maxpoints=100),
+		name = 'Humidity'
 		)
 	trace2 = Scatter(
 		x=[],
 		y=[],
-		mode = 'lines',
-		stream = Stream(token=plotly_user_config['plotly_streaming_tokens'][1],maxpoints=100)
+		mode = 'lines+markers',
+		stream = Stream(token=plotly_user_config['plotly_streaming_tokens'][1],maxpoints=100),
+		name = 'Temperature'
+		)
+	
+	axis_style = dict(
+		showgrid = False,
+		showline = False,
+		zeroline = False
+		)
+
+	layout = Layout(
+		title = 'Temperature & Humidity',
+		xaxis = XAxis(axis_style),
+		yaxis = YAxis(axis_style)
 		)
 
 	data = Data([trace1,trace2])
 
-	fig = Figure(date=data)
+	fig = Figure(data=data)
 	url = py.plot(fig,filename = 'Raspberry Pi streaming DHT sensor readings.')
 
 	print('View your streaming graph here:', url)
