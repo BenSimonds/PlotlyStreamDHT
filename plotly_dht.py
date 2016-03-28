@@ -12,3 +12,4 @@ DHT_PIN = 4
 # Getting data should be as simple as running:
 humidity,temp = Adafruit_DHT.read(DHT_TYPE,DHT_PIN)
 
+print(humidity,temp)
