@@ -32,14 +32,14 @@ with open('./config.json') as config_file:
 		x=[],
 		y=[],
 		mode = 'lines+markers',
-		stream = Stream(token=plotly_user_config['plotly_streaming_tokens'][0],maxpoints=100),
+		stream = Stream(token=plotly_user_config['plotly_streaming_tokens'][0],maxpoints=200),
 		name = 'Humidity'
 		)
 	trace2 = Scatter(
 		x=[],
 		y=[],
 		mode = 'lines+markers',
-		stream = Stream(token=plotly_user_config['plotly_streaming_tokens'][1],maxpoints=100),
+		stream = Stream(token=plotly_user_config['plotly_streaming_tokens'][1],maxpoints=200),
 		name = 'Temperature'
 		)
 	
@@ -80,4 +80,4 @@ with open('./config.json') as config_file:
 		stream2.write({'x':datetime.datetime.now(), 'y':temp})
 
 		#Delay between stream posts.
-		time.sleep(2)
+		time.sleep(180)
