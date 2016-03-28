@@ -58,7 +58,7 @@ with open('./config.json') as config_file:
 	data = Data([trace1,trace2])
 
 	fig = Figure(data=data)
-	url = py.plot(fig,filename = 'Raspberry Pi streaming DHT sensor readings.')
+	url = pl.plot(fig,filename = 'Raspberry Pi streaming DHT sensor readings.')
 
 
 	print('View your streaming graph here:', url)
