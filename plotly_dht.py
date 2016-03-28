@@ -4,6 +4,7 @@ Let's try and stream the data from my rasperry pi / DHT 22 setup to plotly.
 
 import Adafruit_DHT
 import plotly.plotly as pl
+from plotly.graph_objs import *
 import json
 import time
 import datetime
@@ -27,21 +28,32 @@ with open('./config.json') as config_file:
 	plotly_user_config = json.load(config_file)
 	pl.sign_in(plotly_user_config["plotly_username"],plotly_user_config["plotly_api_key"])
 
-	url = pl.plot([
-		{
-			'x':[],'y':[],'type':'scatter',
-			'stream': {
-				'token':plotly_user_config['plotly_streaming_tokens'][0],
-				'maxpoints':200
-			}
-		}], filename = 'Raspberry Pi streaming DHT sensor readings.')
+	trace1 = Scatter(
+		x=[],
+		y=[],
+		mode = 'lines',
+		stream = Stream(token=plotly_user_config['plotly_streaming_tokens'][0],maxpoints=100)
+		)
+	trace2 = Scatter(
+		x=[],
+		y=[],
+		mode = 'lines',
+		stream = Stream(token=plotly_user_config['plotly_streaming_tokens'][1],maxpoints=100)
+		)
+
+	data = Data([trace1,trace2])
+
+	fig = Figure(date=data)
+	url = py.plot(fig,filename = 'Raspberry Pi streaming DHT sensor readings.')
 
 	print('View your streaming graph here:', url)
 
 	#Now we start streaming
 
-	stream = pl.Stream(plotly_user_config['plotly_streaming_tokens'][0])
-	stream.open()
+	stream1 = pl.Stream(plotly_user_config['plotly_streaming_tokens'][0])
+	stream2 = pl.Stream(plotly_user_config['plotly_streaming_tokens'][1])
+	stream1.open()
+	stream2.open()
 
 	while True:
 		humidity,temp = Adafruit_DHT.read(DHT_TYPE,DHT_PIN)
@@ -49,7 +61,8 @@ with open('./config.json') as config_file:
 			time.sleep(2)	# Wait a bit.
 			continue
 
-		stream.write({'x':datetime.datetime.now(), 'y':humidity})
+		stream1.write({'x':datetime.datetime.now(), 'y':humidity})
+		stream2.write({'x':datetime.datetime.now(), 'y':temp})
 
 		#Delay between stream posts.
-		time.sleep(5)
+		time.sleep(2)
